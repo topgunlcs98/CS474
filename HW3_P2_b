@@ -1,0 +1,49 @@
+(declare-const l1 Real)
+(declare-const u1 Real)
+(declare-const l2 Real)
+(declare-const u2 Real)
+(declare-const l3 Real)
+(declare-const u3 Real)
+(declare-const l4 Real)
+(declare-const u4 Real)
+(assert
+    (and 
+    (not
+        (and
+            (> l1 u2)
+            (< u1 l2)
+        )
+    )
+    (not
+        (and
+            (> l1 u3)
+            (< u1 l3)
+        )
+    )
+    (and
+        (> l1 u4)
+        (< u1 l4)
+    )
+    (not
+        (and
+            (> l2 u4)
+            (< u2 l4)
+        )
+    )
+    (and
+        (> l2 u3)
+        (< u2 l3)
+    )
+    (not
+        (and
+            (> l4 u3)
+            (< u4 l3)
+        )
+    )
+    (< l1 u1)
+    (< l2 u2)
+    (< l3 u3)
+    (< l4 u4)
+    )
+)
+(check-sat)
