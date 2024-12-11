@@ -1,0 +1,35 @@
+from z3 import *
+
+# Define constants
+e, c, g, o = Consts('e c g o', IntSort())
+
+# Define function f
+f = Function('f', IntSort(), IntSort(), IntSort())
+
+solver = Solver()
+
+solver.add(f(f(e, e), e) == f(e, f(e, e)))
+solver.add(f(f(e, e), c) == f(e, f(e, c)))
+solver.add(f(f(e, c), e) == f(e, f(c, e)))
+solver.add(f(f(c, e), e) == f(c, f(e, e)))
+solver.add(f(f(c, c), e) == f(c, f(c, e)))
+solver.add(f(f(c, e), c) == f(c, f(e, c)))
+solver.add(f(f(e, c), c) == f(e, f(c, c)))
+solver.add(f(f(c, c), c) == f(c, f(c, c)))
+solver.add(f(e, e) == e)
+solver.add(f(c, e) == c)
+solver.add(f(e, g) == c)
+solver.add(f(e, g) == e)
+solver.add(f(g, e) == e)
+solver.add(f(c, g) == e)
+solver.add(f(g, c) == e)
+solver.add((f(e, c) == e) & (f(c, e) == e) & (e != c))
+solver.add((f(c, g) == 0) & (f(c, c) == c) & (e != c))
+
+
+if solver.check() == sat:
+    print("Satisfiable")
+    print(solver.model())
+else:
+    print("Unsatisfiable")
+
