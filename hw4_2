@@ -1,0 +1,101 @@
+from z3 import *
+
+f = Function('f', RealSort(), RealSort(), RealSort())
+g = Function('g', RealSort(), RealSort())
+
+c = Real('c')
+d = Real('d')
+e = Real('e')
+h = Real('h')
+
+solver = Solver()
+
+solver.add(f(f(c, c), c) == f(c, f(c, c)))
+solver.add(f(f(c, c), d) == f(c, f(c, d)))
+solver.add(f(f(c, c), e) == f(c, f(c, e)))
+solver.add(f(f(c, c), h) == f(c, f(c, h)))
+solver.add(f(f(c, d), c) == f(c, f(d, c)))
+solver.add(f(f(c, d), d) == f(c, f(d, d)))
+solver.add(f(f(c, d), e) == f(c, f(d, e)))
+solver.add(f(f(c, d), h) == f(c, f(d, h)))
+solver.add(f(f(c, e), c) == f(c, f(e, c)))
+solver.add(f(f(c, e), d) == f(c, f(e, d)))
+solver.add(f(f(c, e), e) == f(c, f(e, e)))
+solver.add(f(f(c, e), h) == f(c, f(e, h)))
+solver.add(f(f(c, h), c) == f(c, f(h, c)))
+solver.add(f(f(c, h), d) == f(c, f(h, d)))
+solver.add(f(f(c, h), e) == f(c, f(h, e)))
+solver.add(f(f(c, h), h) == f(c, f(h, h)))
+solver.add(f(f(d, c), c) == f(d, f(c, c)))
+solver.add(f(f(d, c), d) == f(d, f(c, d)))
+solver.add(f(f(d, c), e) == f(d, f(c, e)))
+solver.add(f(f(d, c), h) == f(d, f(c, h)))
+solver.add(f(f(d, d), c) == f(d, f(d, c)))
+solver.add(f(f(d, d), d) == f(d, f(d, d)))
+solver.add(f(f(d, d), e) == f(d, f(d, e)))
+solver.add(f(f(d, d), h) == f(d, f(d, h)))
+solver.add(f(f(d, e), c) == f(d, f(e, c)))
+solver.add(f(f(d, e), d) == f(d, f(e, d)))
+solver.add(f(f(d, e), e) == f(d, f(e, e)))
+solver.add(f(f(d, e), h) == f(d, f(e, h)))
+solver.add(f(f(d, h), c) == f(d, f(h, c)))
+solver.add(f(f(d, h), d) == f(d, f(h, d)))
+solver.add(f(f(d, h), e) == f(d, f(h, e)))
+solver.add(f(f(d, h), h) == f(d, f(h, h)))
+solver.add(f(f(e, c), c) == f(e, f(c, c)))
+solver.add(f(f(e, c), d) == f(e, f(c, d)))
+solver.add(f(f(e, c), e) == f(e, f(c, e)))
+solver.add(f(f(e, c), h) == f(e, f(c, h)))
+solver.add(f(f(e, d), c) == f(e, f(d, c)))
+solver.add(f(f(e, d), d) == f(e, f(d, d)))
+solver.add(f(f(e, d), e) == f(e, f(d, e)))
+solver.add(f(f(e, d), h) == f(e, f(d, h)))
+solver.add(f(f(e, e), c) == f(e, f(e, c)))
+solver.add(f(f(e, e), d) == f(e, f(e, d)))
+solver.add(f(f(e, e), e) == f(e, f(e, e)))
+solver.add(f(f(e, e), h) == f(e, f(e, h)))
+solver.add(f(f(e, h), c) == f(e, f(h, c)))
+solver.add(f(f(e, h), d) == f(e, f(h, d)))
+solver.add(f(f(e, h), e) == f(e, f(h, e)))
+solver.add(f(f(e, h), h) == f(e, f(h, h)))
+solver.add(f(f(h, c), c) == f(h, f(c, c)))
+solver.add(f(f(h, c), d) == f(h, f(c, d)))
+solver.add(f(f(h, c), e) == f(h, f(c, e)))
+solver.add(f(f(h, c), h) == f(h, f(c, h)))
+solver.add(f(f(h, d), c) == f(h, f(d, c)))
+solver.add(f(f(h, d), d) == f(h, f(d, d)))
+solver.add(f(f(h, d), e) == f(h, f(d, e)))
+solver.add(f(f(h, d), h) == f(h, f(d, h)))
+solver.add(f(f(h, e), c) == f(h, f(e, c)))
+solver.add(f(f(h, e), d) == f(h, f(e, d)))
+solver.add(f(f(h, e), e) == f(h, f(e, e)))
+solver.add(f(f(h, e), h) == f(h, f(e, h)))
+solver.add(f(f(h, h), c) == f(h, f(h, c)))
+solver.add(f(f(h, h), d) == f(h, f(h, d)))
+solver.add(f(f(h, h), e) == f(h, f(h, e)))
+solver.add(f(f(h, h), h) == f(h, f(h, h)))
+
+# Additional assertions
+solver.add(And(f(e, e) == e, f(e, e) == e))
+solver.add(And(f(c, e) == c, f(e, c) == c))
+solver.add(And(f(d, e) == d, f(e, d) == d))
+solver.add(And(f(h, e) == h, f(e, h) == h))
+solver.add(And(f(e, g(e)) == e, f(g(e), e) == e))
+solver.add(And(f(c, g(c)) == e, f(g(c), c) == e))
+solver.add(And(f(d, g(d)) == e, f(g(d), d) == e))
+solver.add(And(f(h, g(h)) == e, f(g(h), h) == e))
+solver.add(And(
+    And(
+        And(
+            And(
+                f(c, d) == e,
+                f(d, c) == e
+            ),
+            f(c, h) == e
+        ),
+        f(h, c) == e
+    ),
+    d != h
+))
+
+print(solver.check())
